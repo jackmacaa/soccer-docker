@@ -1,0 +1,16 @@
+{
+  "name": "soccer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Jackmac",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "typescript": "^4.7.4",
+    "ejs": "3.1.8"
+  }
+}
