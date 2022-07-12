@@ -4,22 +4,20 @@ const app = express();
 const bodyParser = require('body-parser');
 const ejsMate = require('ejs-mate');
 const mysql      = require('mysql');
-
-const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'pass',
-  database : 'db'
-});
-
-connection.connect();
  
-connection.query('select * from fees', function (error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].solution);
-});
- 
-connection.end();
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "pass",
+    database: "db"
+  });
+  
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+
+con.end();
 
 // Constants
 const PORT = 8080;
