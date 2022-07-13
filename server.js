@@ -1,12 +1,13 @@
 const express = require('express');
-const stripe = require('stripe')('sk_test_51LKd7kDVlApszjJu0noSLodcYr0mDN5TvtGUYkXFaxMyNKzV2ie4aEwpSRxpG3p3PkSR0wjsq6x9H2aiEdmMYGwU00Ig31iawe');
 const app = express();
 const bodyParser = require('body-parser');
 const ejsMate = require('ejs-mate');
+const stripe = require('stripe')('sk_test_51LKd7kDVlApszjJu0noSLodcYr0mDN5TvtGUYkXFaxMyNKzV2ie4aEwpSRxpG3p3PkSR0wjsq6x9H2aiEdmMYGwU00Ig31iawe');
+const apollo = require('./apollo');
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
-const YOUR_DOMAIN = 'http://localhost:8080';
+const DOMAIN = 'http://localhost:8080';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,11 +23,11 @@ app.get('/checkout', async (req, res) => {
     res.render('checkout');
 });
 
-app.get('/cancel', async (req, res) => {
+app.get('/cancel', (req, res) => {
     res.render('cancel');
 });
 
-app.get('/success', async (req, res) => {
+app.get('/success', (req, res) => {
     res.render('success');
 });
 
@@ -39,11 +40,12 @@ app.post('/create-checkout-session', async (req, res) => {
             }
         ],
         mode: 'payment',
-        success_url: `${YOUR_DOMAIN}/success`,
-        cancel_url: `${YOUR_DOMAIN}/cancel`,
+        success_url: `${DOMAIN}/success`,
+        cancel_url: `${DOMAIN}/cancel`,
     });
     res.redirect(303, session.url);
 });
 
+
 app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+console.log(`NodeJs Server on http://${HOST}:${PORT}`);
