@@ -7,13 +7,17 @@
     <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body>
-    <section>      
+    <section>
+
+        <% for (let result of results) { %>
+            <%= result.id %>   
+        <% } %>    
         <form action="/create-checkout-session" method="POST">
             <select name="fees" id="fees">
-                <% for (let fee of fees) { %>
+
                     <option id="mens-fees" value="price_1LKdIlDVlApszjJuH67o8Cd9">Mens Fees $250</option>
                     <option id="womens-fees" value="price_1LKe74DVlApszjJuKxxpr01U">Womens Fees $150</option>
-                <% } %> 
+           
             </select>
         <button type="submit" id="checkout-button">Checkout</button>
         </form>

@@ -4,21 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const ejsMate = require('ejs-mate');
 const mysql      = require('mysql');
- 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "pass",
-    database: "db"
-  });
   
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-  });
-
-con.end();
-
 // Constants
 const PORT = 8080;
 const HOST = '0.0.0.0';
@@ -34,8 +20,26 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/checkout', (req, res) => {
-    res.render('checkout');
+app.get('/checkout', async (req, res) => {
+    var connection = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "pass",
+        database: "db"
+      });
+    connection.connect(function(err) {if (err) throw err; console.log("Connected!"); });
+
+    //console.log(fees)
+    let sql = `SELECT * FROM fees`;
+    connection.query(sql, (error, results, fields) => {
+    if (error) {
+        return console.error(error.message);
+    }
+    //console.log(results.RowDataPacket)
+    res.render('checkout', {results});
+    });
+    connection.end();
+    
 });
 
 app.post('/create-checkout-session', async (req, res) => {
