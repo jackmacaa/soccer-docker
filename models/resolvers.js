@@ -7,8 +7,8 @@ async function getFees() {
 
 const resolvers = {
     Query:  {
-                fees: async() => await getFees()
-            }     
+        fees: async() => await getFees()
+    }  
 };
 
 module.exports = resolvers;

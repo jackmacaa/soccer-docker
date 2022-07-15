@@ -9,8 +9,20 @@ const typeDefs = gql`
     id: ID!,
     name: String!,
     description: String!,
-    price: Int!
+    price: Int!,
+    stripe_id: String!
   }
 `;
 
-module.exports = typeDefs;
+const getFeesQuery = gql`
+query Query {
+    fees {
+    id
+    description
+    name
+    price
+    stripe_id
+    }
+}`
+
+module.exports = { typeDefs, getFeesQuery };
